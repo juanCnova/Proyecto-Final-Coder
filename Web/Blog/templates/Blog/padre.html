@@ -30,11 +30,16 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-               
+
+                        {% if request.user.is_authenticated %}
                         <li class="nav-item"><a class="nav-link" href="{% url 'Blog:post' %}">Post</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'Account:login' %}">Iniciar session</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'Account:register' %}">Registrarse</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'Account:logout' %}">Logout</a></li>
+                        {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'Account:login' %}">Loging</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'Account:register' %}">Register</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'Blog:about' %}">About</a></li>
+
+                        {% endif %}
                     </ul>
                 </div>
             </div>
@@ -45,6 +50,9 @@
             <div class="container">
                 <div style="color:brown;" class="masthead-heading text-uppercase">Blog de Coder</div>
                 <div class="masthead-subheading">Inicio</div>
+                {% if msj %}
+                <div class="masthead-subheading">{{msj}}</div>
+                {% endif %}
             </div>
         </header>
        

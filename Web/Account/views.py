@@ -24,8 +24,9 @@ def login_user(request):
 
             if user is not None:
                 login(request, user)
+                msj = f'Bienvenido {request.user}' 
 
-                return render(request, 'Blog/inicio.html')
+                return render(request, 'Blog/inicio.html' , {'msj':msj})
             else:
                 return HttpResponse('error de usuario')
         
