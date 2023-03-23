@@ -9,3 +9,46 @@ Register
 {% block form %}
 <a href="{% url 'Account:login' %}" style="color: #fff">Iniciar session</a>
 {% endblock %}
+
+{% block formulario %}
+
+<form action="" method="POST" class="signin-form" onsubmit="return validarFormulario()">{% csrf_token %}
+    
+    {% for hidden in formulario.hidden_fields %}
+        {{ hidden }}
+    {% endfor %}
+  
+{% for filed in formulario %}
+
+    <div class="form-group">
+        {{filed}}        
+    </div>
+    {% for error in field.errors %}
+    <span class="help-block">{{ error }}</span>
+    {% endfor %}
+
+
+{% endfor %}
+
+
+<div class="form-group">
+  <button type="submit" class="form-control btn btn-primary submit px-3">Ingresar</button>
+</div>
+<div class="form-group d-md-flex">
+  <div class="w-50">
+      <label class="checkbox-wrap checkbox-primary">Remember Me
+                    <input type="checkbox" checked>
+                    <span class="checkmark"></span>
+                  </label>
+              </div>
+              <div class="w-50 text-md-right">
+                <a href="{% url 'Account:login' %}" style="color: #fff">Iniciar</a>                  
+              </div>
+</div>
+</form>
+
+{% endblock %}
+
+
+    
+    
