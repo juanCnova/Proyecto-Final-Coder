@@ -12,6 +12,9 @@ def inicio(request):
 
 @login_required
 def post(request):
+    return render(request , 'Blog/post.html' )
+
+def newPost(request):
     if request.method == 'POST':
         formulario = PosteoForm(request.POST , request.FILES)
 
@@ -26,7 +29,7 @@ def post(request):
     else:
         formulario = PosteoForm()
 
-    return render(request , 'Blog/post.html' , {'formulario':formulario})
+    return render(request , 'Blog/newPost.html' , {'formulario':formulario})
     
     
 

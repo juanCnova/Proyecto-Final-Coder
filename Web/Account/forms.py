@@ -9,10 +9,10 @@ class loginForm(AuthenticationForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs={'id':"password-field" , 'type':"password" , 'class':"form-control" , 'placeholder':"Password"}))
 
 class UserRegister(UserCreationForm):
-    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'username' , 'name':"username" , 'type':'text'}))
-    email = forms.EmailField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'email'}))
-    password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Contraseña'}))
-    password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Repetir Contraseña'}))
+    username = forms.CharField(min_length=4,max_length=15 ,widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '' , 'name':"username" , 'type':'text'}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': ''}))
+    password1 = forms.CharField(min_length= 6 ,widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': ''}))
+    password2 = forms.CharField(min_length = 6 ,widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': ''}))
 
     class Meta:
         model = User

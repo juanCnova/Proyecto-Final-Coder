@@ -4,10 +4,11 @@ from django.contrib.auth.models import User
 
 
 class PosteoForm(forms.Form):
-    titulo = forms.CharField(max_length=20)
-    subtitulo = forms.CharField(max_length=20)
-    post = forms.CharField(max_length=20)
-    imagen = forms.ImageField()
+    
+    titulo = forms.CharField(max_length=15 ,widget=forms.TextInput(attrs={'class': 'form-control', 'name':"titulo" , 'type':'text'}))
+    subtitulo = forms.CharField(max_length=15 ,widget=forms.TextInput(attrs={'class': 'form-control', 'name':"subtitulo" , 'type':'text'}))
+    post = forms.CharField(max_length=200 ,widget=forms.Textarea(attrs={ 'rows':5  ,'class': 'form-control', 'name':"post" , 'type':'text'}))
+    imagen = forms.ImageField(required=False , max_length=15)
 
   
   
