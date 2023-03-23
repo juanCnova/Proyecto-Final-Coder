@@ -12,7 +12,14 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def perfil(request):
-    return render(request, 'Account/perfil.html')
+
+    avatares = Avatar.objects.filter(user=request.user.id).first()
+    if avatares is not None:
+        avatares_url = avatares.imagen.url
+    else:
+        avatares_url = None
+
+    return render(request, 'Account/perfil.html' , {'url':avatares_url})
 
 def login_user(request):
     

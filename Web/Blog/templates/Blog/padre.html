@@ -52,14 +52,16 @@
         <header class="masthead">
             <div class="container">
                 <div style="color:brown;" class="masthead-heading text-uppercase">Blog de Coder</div>
-                <div class="masthead-subheading">Inicio</div>
+                <div class="masthead-subheading">{% block msj %} {% endblock %}</div>
                 {% if msj %}
                 <div class="masthead-subheading">{{msj}}</div>
                 {% endif %}
             </div>
         </header>
        
-        <img height="40px" src="{{url}}">
+        <!-- <div class="imagen-redonda">
+            <img height="30px" src="{{ url }}" ">
+        </div> -->
         {% block padre %}
 
         {% endblock %}
@@ -95,3 +97,16 @@
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
     </body>
 </html>
+
+<style>
+    .imagen-redonda {
+        border-radius: 50%;
+        overflow: hidden;
+        width: 100px; /* Ancho fijo para el contenedor */
+        height: 100px; /* Alto fijo para el contenedor */
+    }
+    .imagen-redonda img {
+        width: 100%;
+        height: auto;
+    }
+</style>

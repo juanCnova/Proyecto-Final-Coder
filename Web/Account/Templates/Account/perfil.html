@@ -2,8 +2,33 @@
 
 {% load static %}
 
-{% block padre %}
+{% block msj %}
 
-<h1>perfil</h1>
+<h1 style="color: brown;">perfil</h1>
 
 {% endblock %}
+
+{% block padre %}
+
+<h3>Foto de perfil</h3>
+
+<div class="imagen-redonda">
+    <img height="30px" src="{{ url }}" ">
+</div>
+
+<a style="color: blue;" href="{% url 'Account:avatar' %}">Modificar</a>
+
+{% endblock %}
+
+<style>
+    .imagen-redonda {
+        border-radius: 50%;
+        overflow: hidden;
+        width: 100px; /* Ancho fijo para el contenedor */
+        height: 100px; /* Alto fijo para el contenedor */
+    }
+    .imagen-redonda img {
+        width: 100%;
+        height: auto;
+    }
+</style>

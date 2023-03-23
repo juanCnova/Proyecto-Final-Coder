@@ -101,6 +101,15 @@ hr:not([size]) {
   height: 1px;
 }
 
+.imagen-redonda {
+  border-radius: 50%;
+  overflow: hidden;
+}
+.imagen-redonda img {
+  width: 100%;
+  height: auto;
+}
+
 h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
   margin-top: 0;
   margin-bottom: 0.5rem;
