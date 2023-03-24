@@ -8,5 +8,12 @@ urlpatterns = [
     path('post/',post , name='post'),
     path('about/',about , name='about'),
     path('newPost/',newPost , name='newPost'),
+    path('post/list/',BlogList.as_view() , name='blogList'),
+    path('post/<int:pk>/', BlogDetail.as_view(), name='detalle'),
+    path('post/borrar/<int:pk>', BlogDelete.as_view() , name = 'delete'),
+    path('post/borrar/<int:pk>', BlogDelete.as_view() , name = 'delete'),
+    path('editarPost/<titulo_post>', editarPost , name = 'editarPost'),
+
+
     
 ]
