@@ -39,9 +39,9 @@
                               Post
                             </button>
                             <div style="border: none; background-color: transparent;" class="dropdown-menu" aria-labelledby="dropdownPost">
-                              <a class="dropdown-item" href="{% url 'Blog:newPost' %}">New Post</a>
-                              <a class="dropdown-item" href="{% url 'Blog:blogList' %}">Ver Post</a>
-                              <a class="dropdown-item" href="{% url 'Blog:buscar' %}">Buscar Post</a>
+                              <a style="color: white;" class="dropdown-item" href="{% url 'Blog:newPost' %}">New Post</a>
+                              <a style="color: white;" class="dropdown-item" href="{% url 'Blog:blogList' %}">Ver Post</a>
+                              <a style="color: white;" class="dropdown-item" href="{% url 'Blog:buscar' %}">Buscar Post</a>
                               <!-- Agregue más elementos de menú aquí si es necesario -->
                             </div>
                           </li>
@@ -50,14 +50,15 @@
                               Perfil
                             </button>
                             <div style="border: none; background-color: transparent;" class="dropdown-menu" aria-labelledby="dropdownPerfil">
-                              <a class="dropdown-item" href="{% url 'Account:perfil' %}">Ver Perfil</a>
-                              <a class="dropdown-item" href="{% url 'Account:editarPerfil' %}">Editar Perfil</a>
-                              <a class="dropdown-item" href="{% url 'Account:avatar' %}">Agregar Avatar</a>
+                              <a style="color: white;" class="dropdown-item" href="{% url 'Account:perfil' %}">Ver Perfil</a>
+                              <a style="color: white;" class="dropdown-item" href="{% url 'Account:editarPerfil' %}">Editar Perfil</a>
+                              <a style="color: white;" class="dropdown-item" href="{% url 'Account:avatar' %}">Agregar Avatar</a>
                               <!-- Agregue más elementos de menú aquí si es necesario -->
                             </div>
                           </li>
                           <li style="border: none; background-color: transparent;" class="nav-item dropdown">
                             <li class="nav-item"><a style="font-size: 20px;" class="nav-link" href="{% url 'Account:logout' %}">Logout</a></li>
+                            <li class="nav-item"><a style="font-size: 20px;" class="nav-link" >{{request.user}}</a></li>
                 
                           </li>
                         
@@ -96,7 +97,7 @@
         <footer class="footer py-4">
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-lg-4 text-lg-start">Copyright &copy; Your Website 2022</div>
+                    <div class="col-lg-4 text-lg-start">Copyright &copy; Your Website 2023</div>
                     <div class="col-lg-4 my-3 my-lg-0">
                         <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
                         <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
@@ -123,15 +124,3 @@
     </body>
 </html>
 
-<style>
-    .imagen-redonda {
-        border-radius: 50%;
-        overflow: hidden;
-        width: 100px; /* Ancho fijo para el contenedor */
-        height: 100px; /* Alto fijo para el contenedor */
-    }
-    .imagen-redonda img {
-        width: 100%;
-        height: auto;
-    }
-</style>

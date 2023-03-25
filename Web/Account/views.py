@@ -86,6 +86,7 @@ def register(request):
 
     return render(request, 'Account/register.html' , {'formulario':formulario})
 
+@login_required
 def agregarAvatar(request):
     if request.method == 'POST':
         formulario = avatarForm(request.POST , request.FILES)

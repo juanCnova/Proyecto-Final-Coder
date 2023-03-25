@@ -23,6 +23,7 @@ def inicio(request):
 def post(request):
     return render(request , 'Blog/post.html' )
 
+@login_required
 def newPost(request):
     if request.method == 'POST':
         formulario = PosteoForm(request.POST , request.FILES)
@@ -44,6 +45,7 @@ def newPost(request):
 
 def about(request):
     return render(request , 'Blog/about.html')
+
 
 class BlogList(LoginRequiredMixin,ListView):
     model = Posteo
@@ -98,10 +100,11 @@ def editarPost(request, titulo_post):
     else:
         return PermissionError
 
+@login_required
 def formBusqueda(request):
     return render(request , 'Blog/formBusqueda.html')
 
-
+@login_required
 def resultadoBusqueda(request):
     post = None # Valor predeterminado para evitar el error UnboundLocalError
    
