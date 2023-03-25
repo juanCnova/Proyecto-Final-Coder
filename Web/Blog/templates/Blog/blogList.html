@@ -1,26 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    {% for post in object_list %}
+{% extends 'Blog/padre.html' %}
 
-    <li>
-        <p>{{post.titulo}}</p>
-        <a href="{% url 'Blog:detalle' post.id %}">leer</a>
-        {% if request.user == post.autor %}
-        <a href="{% url 'Blog:delete' post.id %}">Borrar</a>
-        <a href="{% url 'Blog:editarPost' post.titulo %}">editar</a>
-        {% endif %}
-    </li>
+{% load static %}
 
-    {% endfor%}
-    <br>
-    <a href="{% url 'Blog:post' %}">Volver</a>
-    
-</body>
-</html>
+
+
+{% block padre %}
+
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <div class="container mt-5">
+                {% if object_list %}
+                
+                {% for posts in object_list %}
+                <div class="post-preview">
+                    <a href="{%url 'Blog:detalle' posts.id%}">
+                        <h2 class="post-title">{{posts.titulo}}</h2>
+                        <h4 class="post-subtitle">{{posts.subtitulo}}</h4>
+                    </a>
+                    <p class="post-meta">Posteado por {{posts.autor}} el {{posts.fecha}}</p>
+                    <a href="{%url 'Blog:detalle' posts.id%}">Leer más</a>
+                    {% if request.user == posts.autor %}
+                    <a href="{%url 'Blog:editarPost' posts.titulo%}">editar</a>
+                    <a href="{%url 'Blog:delete' posts.id%}">borrar</a>                    
+                    {% endif %}
+                </div>
+                {% endfor %}
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="container mt-5">
+                        {% if request.user.is_authenticated %}
+                        <a href="{% url 'Blog:newPost' %}" class="btn btn-success">Nuevo post</a>
+                        <p><a href="{% url 'Blog:inicio' %}">Volver al inicio</a></p>
+                        {% else %}
+                        <p>
+                            Para crear un post,
+                            <a href="{% url 'Account:login' %}">inicia sesión</a>
+                        </p>
+                        <p><a href="{% url 'Account:inicio' %}">Volver al inicio</a></p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% else %}
+
+                        <h2>No existen posts aún</h2>
+                        {% if request.user.is_authenticated %} 
+                        <p><a href="{% url 'Blog:newPost' %}">Agregar un post</a></p>
+                        <p><a href="{% url 'Blog:inicio' %}">Volver al inicio</a></p>
+                        {% else %}
+                        <p>
+                            Para crear un post,
+                            <a href="{% url 'Account:login' %}">inicia sesión</a>
+                        </p>
+                        <p><a href="{% url 'Account:inicio' %}">Volver al inicio</a></p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>
+ 
+{% endblock  %}

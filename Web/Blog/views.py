@@ -61,37 +61,42 @@ class BlogDelete(LoginRequiredMixin , DeleteView):
 
 @login_required
 def editarPost(request, titulo_post):
+    
 
     post = Posteo.objects.get(titulo=titulo_post)
+    if request.user == post.autor:
 
-    if request.method == 'POST':
 
-        formulario = PosteoForm(request.POST , request.FILES)
+        if request.method == 'POST':
 
-        if formulario.is_valid():  
+            formulario = PosteoForm(request.POST , request.FILES)
 
-            info = formulario.cleaned_data
+            if formulario.is_valid():  
 
-            post.autor = request.user
-            post.titulo = info['titulo']
-            post.subtitulo = info['subtitulo']
-            post.post = info['post']
-            post.fecha = timezone.now()
+                info = formulario.cleaned_data
 
-            if info['imagen'] != None:
-                post.imagen = info['imagen'] 
+                post.autor = request.user
+                post.titulo = info['titulo']
+                post.subtitulo = info['subtitulo']
+                post.post = info['post']
+                post.fecha = timezone.now()
 
-            post.save()
+                if info['imagen'] != None:
+                    post.imagen = info['imagen'] 
 
-            return render(request, "Blog/post.html")
+                post.save()
 
-    else:
+                return render(request, "Blog/post.html")
+
+        else:
         
-        formulario = PosteoForm(initial={'titulo': post.titulo, 'subtitulo': post.subtitulo,'post': post.post, 'autor': post.autor , 'imagen': post.imagen})
+            formulario = PosteoForm(initial={'titulo': post.titulo, 'subtitulo': post.subtitulo,'post': post.post, 'autor': post.autor , 'imagen': post.imagen})
 
     
-    return render(request, "blog/newPost.html", {"formulario": formulario, "titulo_post": titulo_post})
-
+        return render(request, "blog/newPost.html", {"formulario": formulario, "titulo_post": titulo_post})
+    
+    else:
+        return PermissionError
 
 def formBusqueda(request):
     return render(request , 'Blog/formBusqueda.html')
