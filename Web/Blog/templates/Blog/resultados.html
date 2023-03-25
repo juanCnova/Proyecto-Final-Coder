@@ -7,16 +7,13 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="" method="POST">{% csrf_token %}
+    {% for posteo in post %}
 
-        <table>
+    <li>poste: {{posteo}}</li>
+    <a href="{% url 'Blog:detalle' posteo.id %}">leer</a>
 
-            {{formulario.as_table}}
-        
-        </table>
-        <input type="submit" value="modificar">
-        
-    </form>
+
+    {% endfor %}
     
 </body>
 </html>

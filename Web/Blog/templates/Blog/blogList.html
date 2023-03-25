@@ -12,8 +12,10 @@
     <li>
         <p>{{post.titulo}}</p>
         <a href="{% url 'Blog:detalle' post.id %}">leer</a>
+        {% if request.user == post.autor %}
         <a href="{% url 'Blog:delete' post.id %}">Borrar</a>
         <a href="{% url 'Blog:editarPost' post.titulo %}">editar</a>
+        {% endif %}
     </li>
 
     {% endfor%}

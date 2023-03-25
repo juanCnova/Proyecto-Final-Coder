@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required 
+from django.contrib.auth.mixins import LoginRequiredMixin 
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import DeleteView
@@ -32,7 +33,7 @@ def newPost(request):
             posteo = Posteo(autor = request.user , titulo = info['titulo'] , subtitulo = info['subtitulo'] , post = info['post'] , imagen = info['imagen'])
             posteo.save()
 
-            return render(request, 'Blog/inicio.html')
+            return render(request, 'Blog/post.html')
 
     else:
         formulario = PosteoForm()
@@ -42,21 +43,23 @@ def newPost(request):
     
 
 def about(request):
-    return render(request ,  'Blog/about.html')
+    return render(request , 'Blog/about.html')
 
-class BlogList(ListView):
+class BlogList(LoginRequiredMixin,ListView):
     model = Posteo
     template_name = 'Blog/blogList.html'
 
-class BlogDetail(DetailView):
+class BlogDetail(LoginRequiredMixin , DetailView):
     model = Posteo
     template_name = 'Blog/blogDetail.html'
 
-class BlogDelete(DeleteView):
+class BlogDelete(LoginRequiredMixin , DeleteView):
     model = Posteo
     template_name = 'Blog/post_confirm_delete.html'
     success_url = reverse_lazy('Blog:blogList')
 
+
+@login_required
 def editarPost(request, titulo_post):
 
     post = Posteo.objects.get(titulo=titulo_post)
@@ -73,8 +76,10 @@ def editarPost(request, titulo_post):
             post.titulo = info['titulo']
             post.subtitulo = info['subtitulo']
             post.post = info['post']
-            post.imagen = info['imagen']
             post.fecha = timezone.now()
+
+            if info['imagen'] != None:
+                post.imagen = info['imagen'] 
 
             post.save()
 
@@ -86,3 +91,30 @@ def editarPost(request, titulo_post):
 
     
     return render(request, "blog/newPost.html", {"formulario": formulario, "titulo_post": titulo_post})
+
+
+def formBusqueda(request):
+    return render(request , 'Blog/formBusqueda.html')
+
+
+def resultadoBusqueda(request):
+    post = None # Valor predeterminado para evitar el error UnboundLocalError
+   
+    if 'titulo' in request.GET:
+        titulo = request.GET['titulo']
+        post = Posteo.objects.filter(titulo__icontains=titulo)
+
+        if len(titulo) == 0:
+              return render(request , 'Blog/resultados.html', {'vacio':1})
+
+    elif 'autor' in request.GET:
+        autor = request.GET['autor']
+        post = Posteo.objects.filter(autor__username__icontains=autor)
+
+        if len(autor) == 0:
+              return render(request , 'Blog/resultados.html', {'vacio':1})
+
+    else:
+        return HttpResponse('No se ingresaron datos')
+
+    return render(request , 'Blog/resultados.html', {'post':post})

@@ -1,0 +1,45 @@
+{% extends 'Account/FormPadre.html' %}
+
+{% load static %}
+
+
+{% block formulario %}
+
+<form action="/Blog/post/resultadoBusqueda" method="GET"> 
+
+    
+    
+    
+    <div class="form-group">
+        <p>Titulo: <input class="form-control" type="text" name="titulo" id="titulo"> </p>
+        
+    </div>
+
+
+<div class="form-group">
+  <button type="submit" class="form-control btn btn-primary submit px-3">Buscar</button>
+</div>
+</form>
+
+
+<form action="/Blog/post/resultadoBusqueda" method="GET"> 
+
+       
+    <div class="form-group">
+        <p>Autor: <input class="form-control" type="text" name="autor" id="autor"> </p>
+        
+    </div>
+
+
+<div class="form-group">
+  <button type="submit" class="form-control btn btn-primary submit px-3">Buscar</button>
+</div>
+<br>
+<div class="social d-flex text-center">
+ 
+  <a href="{% url 'Blog:post' %}" class="px-2 py-2 ml-md-1 rounded"><span class="ion-logo-twitter mr-2"></span> Volver</a>
+</div>
+</form>
+
+
+{% endblock %}
