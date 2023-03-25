@@ -9,21 +9,30 @@ Registro
 
 {% block formulario %}
 
-<form action="" method="POST" class="signin-form" enctype="multipart/form-data">{% csrf_token %}
+<form action="" method="POST" class="signin-form">{% csrf_token %}
+    
+  
 
     <div class="form-group">
         {{formulario}}       
     </div>
 
+
+
+
 <div class="form-group">
-  <button type="submit" class="form-control btn btn-primary submit px-3">Guardar</button>
+  <button type="submit" class="form-control btn btn-primary submit px-3">Editar</button>
 </div>
 <br>
 <div class="social d-flex text-center">
-  <a href="{% url 'Account:editarPerfil' %}" class="px-2 py-2 mr-md-1 rounded"><span class="ion-logo-facebook mr-2"></span>Editar Perfil</a>
+  <a href="{% url 'Account:avatar' %}" class="px-2 py-2 mr-md-1 rounded"><span class="ion-logo-facebook mr-2"></span>Agregar Avatar</a>
   <a href="{% url 'Blog:inicio' %}" class="px-2 py-2 ml-md-1 rounded"><span class="ion-logo-twitter mr-2"></span> Volver</a>
 </div>
 
 </form>
 
 {% endblock %}
+
+
+    
+    

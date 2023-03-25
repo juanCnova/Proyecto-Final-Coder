@@ -9,7 +9,7 @@ class Posteo(models.Model):
     fecha = models.DateTimeField(default=timezone.now)
     titulo = models.CharField(max_length=20)
     subtitulo = models.CharField(max_length=20)
-    post = models.CharField(max_length=200)
+    post = models.CharField(max_length=2000)
     imagen = models.ImageField(upload_to='img' , null = True , blank = True)
 
     def __str__(self):

@@ -27,9 +27,10 @@ class UserRegister(UserCreationForm):
         return password2
     
 class avatarForm(forms.Form):
-    imagen = forms.ImageField(required=True)
+    imagen = forms.ImageField(required=True , widget=forms.FileInput(attrs={'class': 'form-control', 'name':"imagen" , 'type':'FILE'}))
 
     class Meta:
         model = User
         fields = ['imagen']
     
+

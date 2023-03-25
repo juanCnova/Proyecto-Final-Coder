@@ -33,7 +33,7 @@ def newPost(request):
             posteo = Posteo(autor = request.user , titulo = info['titulo'] , subtitulo = info['subtitulo'] , post = info['post'] , imagen = info['imagen'])
             posteo.save()
 
-            return render(request, 'Blog/post.html')
+            return render(request, 'Blog/inicio.html')
 
     else:
         formulario = PosteoForm()

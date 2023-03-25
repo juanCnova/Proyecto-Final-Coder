@@ -1,34 +1,139 @@
-{% extends 'Blog/padre.html' %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load static %}
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Resume - Start Bootstrap Theme</title>
+        <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'Perfil/css/styles.css' %}" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top">
+                <span class="d-block d-lg-none">Clarence Taylor</span>
+                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="{{url}}" alt="..." /></span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#Posteos">Mis posteos</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'Account:editarPerfil' %}">Editar Perfil</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'Account:avatar' %}">Editar Avatar</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'Blog:inicio' %}">Volver</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- Page Content-->
+        <div class="container-fluid p-0">
+            <!-- About-->
+            <section class="resume-section" id="about">
+                <div class="resume-section-content">
+                    <h1 class="mb-0">
+                        {{request.user}}
+                        
+                    </h1>
+                    <div class="subheading mb-5">
+                        email: 
+                        <a href="mailto:name@email.com">{{request.user.email}}</a>
+                    </div>
+                    <p class="lead mb-5">I am experienced in leveraging agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition.</p>
+                    <div class="social-icons">
+                        <a class="social-icon" href="#!"><i class="fab fa-linkedin-in"></i></a>
+                        <a class="social-icon" href="#!"><i class="fab fa-github"></i></a>
+                        <a class="social-icon" href="#!"><i class="fab fa-twitter"></i></a>
+                        <a class="social-icon" href="#!"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+            </section>
+            <hr class="m-0" />
+            
+    
+            <!-- Posteos-->
+            <section class="resume-section" id="Posteos">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Mis Posteos</h2>
+                   
+                   
+                    <div class="container px-4 px-lg-5">
+                        <div class="row gx-4 gx-lg-5 justify-content-center">
+                            <div class="col-md-10 col-lg-8 col-xl-7">
+                                <div class="container mt-5">
+                                    {% if post %}
+                                    
+                                    {% for posts in post %}
+                                    <div class="post-preview">
+                                        <a href="{%url 'Blog:detalle' posts.id%}">
+                                            <br>
+                                            <h2 class="post-title">{{posts.titulo}}</h2>
+                                            <h4 class="post-subtitle">{{posts.subtitulo}}</h4>
+                                        </a>
+                                        <p class="post-meta">Posteado por {{posts.autor}} el {{posts.fecha}}</p>
+                                        <a href="{%url 'Blog:detalle' posts.id%}">Leer más</a>
+                                        {% if request.user == posts.autor %}
+                                        <a href="{%url 'Blog:editarPost' posts.titulo%}">editar</a>
+                                        <a href="{%url 'Blog:delete' posts.id%}">borrar</a>                    
+                                        {% endif %}
+                                        <br>
+                                    </div>
+                                    {% endfor %}
+                                    <div class="row gx-4 gx-lg-5 justify-content-center">
+                                        <div class="container mt-5">
+                                            {% if request.user.is_authenticated %}
+                                            <a href="{% url 'Blog:newPost' %}" class="btn btn-success">Nuevo post</a>
+                                            <p><a href="{% url 'Blog:inicio' %}">Volver al inicio</a></p>
+                                            {% else %}
+                                            <p>
+                                                Para crear un post,
+                                                <a href="{% url 'Account:login' %}">inicia sesión</a>
+                                            </p>
+                                            <p><a href="{% url 'Account:inicio' %}">Volver al inicio</a></p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                    
+                                    {% else %}
+                    
+                                            <h2>No existen posts aún</h2>
+                                            {% if request.user.is_authenticated %} 
+                                            <p><a href="{% url 'Blog:newPost' %}">Agregar un post</a></p>
+                                            <p><a href="{% url 'Blog:inicio' %}">Volver al inicio</a></p>
+                                            {% else %}
+                                            <p>
+                                                Para crear un post,
+                                                <a href="{% url 'Account:login' %}">inicia sesión</a>
+                                            </p>
+                                            <p><a href="{% url 'Account:inicio' %}">Volver al inicio</a></p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                    
+                                    {% endif %}
+                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
 
-{% load static %}
 
-{% block msj %}
-
-<h1 style="color: brown;">perfil</h1>
-
-{% endblock %}
-
-{% block padre %}
-
-<h3>Foto de perfil</h3>
-
-<div class="imagen-redonda">
-    <img height="30px" src="{{ url }}" ">
-</div>
-
-<a style="color: blue;" href="{% url 'Account:avatar' %}">Modificar</a>
-
-{% endblock %}
-
-<style>
-    .imagen-redonda {
-        border-radius: 50%;
-        overflow: hidden;
-        width: 100px; /* Ancho fijo para el contenedor */
-        height: 100px; /* Alto fijo para el contenedor */
-    }
-    .imagen-redonda img {
-        width: 100%;
-        height: auto;
-    }
-</style>
+                </div>
+            </section>
+            <hr class="m-0" />
+            
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{% static 'Perfil/js/scripts.js' %}"></script>
+    </body>
+</html>

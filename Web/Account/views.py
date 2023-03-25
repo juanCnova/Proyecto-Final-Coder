@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login , logout , authenticate
 from django.contrib import messages
+from Blog.models import *
 from Account.forms import *
 from Account.models import *
 from django.contrib.auth.decorators import login_required 
@@ -18,8 +19,11 @@ def perfil(request):
         avatares_url = avatares.imagen.url
     else:
         avatares_url = None
+   
+    usuario = request.user
+    post = Posteo.objects.filter(autor__username__icontains = usuario)
 
-    return render(request, 'Account/perfil.html' , {'url':avatares_url})
+    return render(request, 'Account/perfil.html' , {'url':avatares_url , 'post':post})
 
 def login_user(request):
     
@@ -107,3 +111,31 @@ def agregarAvatar(request):
         formulario = avatarForm()
     
     return render(request, 'Account/editarAvatar.html' , {'formulario':formulario})
+
+
+@login_required
+def editarPerfil(request):
+     
+    usuario = request.user
+
+    if request.method == 'POST':
+
+        formulario = UserRegister(request.POST)
+
+        if formulario.is_valid():
+
+            informacion = formulario.cleaned_data
+
+            usuario.username = informacion['username']
+            usuario.email = informacion['email']
+            usuario.password1 = informacion['password1']
+            usuario.password2 = informacion['password2']
+
+            usuario.save()
+
+            return render(request, "Blog/inicio.html")
+
+    else:
+        formulario = UserRegister(initial={'email': usuario.email , 'username':usuario.username })
+
+    return render(request, "Account/editarPerfil.html", {"formulario": formulario})

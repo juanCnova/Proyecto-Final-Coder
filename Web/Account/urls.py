@@ -9,5 +9,6 @@ urlpatterns = [
     path('login/',login_user , name='login'),
     path('register/',register , name='register'),
     path('editarAvatar/', agregarAvatar , name='avatar'),
+    path('editarPerfil/', editarPerfil , name='editarPerfil'),
     path('logout/',LogoutView.as_view(template_name = 'Blog/inicio.html') , name='logout'),
 ]

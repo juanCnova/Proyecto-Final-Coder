@@ -2,7 +2,9 @@
 
 {% load static %}
 
-
+{% block msj %}
+Posteos
+{% endblock %}
 
 {% block padre %}
 
@@ -13,10 +15,11 @@
                 {% if object_list %}
                 
                 {% for posts in object_list %}
+                <br><br>
                 <div class="post-preview">
-                    <a href="{%url 'Blog:detalle' posts.id%}">
-                        <h2 class="post-title">{{posts.titulo}}</h2>
-                        <h4 class="post-subtitle">{{posts.subtitulo}}</h4>
+                    <a style="color: black;" href="{%url 'Blog:detalle' posts.id%}">
+                        <h2 style="color: black;" class="post-title">{{posts.titulo}}</h2>
+                        <h4 style="color: black;" class="post-subtitle">{{posts.subtitulo}}</h4>
                     </a>
                     <p class="post-meta">Posteado por {{posts.autor}} el {{posts.fecha}}</p>
                     <a href="{%url 'Blog:detalle' posts.id%}">Leer más</a>
@@ -30,7 +33,6 @@
                     <div class="container mt-5">
                         {% if request.user.is_authenticated %}
                         <a href="{% url 'Blog:newPost' %}" class="btn btn-success">Nuevo post</a>
-                        <p><a href="{% url 'Blog:inicio' %}">Volver al inicio</a></p>
                         {% else %}
                         <p>
                             Para crear un post,

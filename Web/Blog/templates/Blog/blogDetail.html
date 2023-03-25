@@ -1,20 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
+{% extends 'Blog/padre.html' %}
+{% load static %}
 
-    
-    <h1>{{posteo.titulo}}</h1>
-    <h2>{{posteo.subtitulo}}</h2>
-    <h3>{{posteo.post}}</h3>
-    <p>{{posteo.fecha}}</p>
-    <p>{{posteo.autor}}</p>
-    <p><img src="{{posteo.imagen.url}}" alt=""></p>
-</body>
-</html>
+{% block padre %}
+
+
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="post-heading">
+                    <h1>{{posteo.titulo}}</h1>
+                    <h2 style="opacity: 0.6;font-family:Arial, Helvetica, sans-serif;" class="subheading"><em>{{posteo.subtitulo}}</em></h2>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+<br><br>
+
+<article class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <p>{{posteo.post}}</p>
+                <img src="{{posteo.imagen.url}}" width="70%" alt="">
+                <br>
+                <br>
+                <br>
+                <span style="opacity: 0.6;" class="meta">
+                    Posteado por {{posteo.autor}} el {{posteo.fecha}}
+                </span>
+
+                <br><br><br>
+                <a style="color: blue;" href="{% url 'Blog:blogList' %}" class="btn btn-succes">Regresar</a>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+{% endblock %}
+
+
