@@ -23,10 +23,13 @@
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
                 <p>{{posteo.post}}</p>
-                <img src="{{posteo.imagen.url}}" width="70%" alt="">
-                <br>
-                <br>
-                <br>
+                {% if posteo.imagen %}
+                   <img src="{{ posteo.imagen.url }}" width="70%" alt="">
+                   <br>
+                   <br>
+                   <br>
+                {% endif %}
+
                 <span style="opacity: 0.6;" class="meta">
                     Posteado por {{posteo.autor}} el {{posteo.fecha}}
                 </span>

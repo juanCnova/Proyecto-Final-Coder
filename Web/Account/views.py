@@ -43,7 +43,7 @@ def login_user(request):
                 login(request, user)
 
                 avatares = Avatar.objects.filter(user=request.user.id).first()
-                print(avatares)
+
                 if avatares is not None:
                     avatares_url = avatares.imagen.url
                 else:
@@ -57,7 +57,7 @@ def login_user(request):
                 return HttpResponse('error de usuario')
         
         else:
-            return HttpResponse('error de formulario')
+             return render(request, 'Account/login.html', {"formulario": formulario})
 
     else:
         formulario = loginForm()
@@ -76,10 +76,7 @@ def register(request):
             formulario.save()
             messages.success(request, 'Tu cuenta ha sido creada! Ahora puedes iniciar sesión')
 
-            return render(request , 'Blog/inicio.html' , {'msj':'Usuario creado correctamente'})
-        else:
-            return render(request , 'Account/register.html' , {'msj':'Error al crear usuario'})
-        
+            return render(request , 'Blog/inicio.html' , {'msj':'Usuario creado correctamente'})        
 
     else:
         formulario = UserRegister()
@@ -98,8 +95,7 @@ def agregarAvatar(request):
                avatar = Avatar.objects.get(user = request.user)
                avatar.delete()
             except:
-                avatar = Avatar(user = request.user , imagen = formulario.cleaned_data['imagen']) 
-                avatar.save()
+                pass
 
                 
             
@@ -122,15 +118,16 @@ def editarPerfil(request):
     if request.method == 'POST':
 
         formulario = UserRegister(request.POST)
-
+        
         if formulario.is_valid():
 
             informacion = formulario.cleaned_data
 
             usuario.username = informacion['username']
             usuario.email = informacion['email']
-            usuario.password1 = informacion['password1']
-            usuario.password2 = informacion['password2']
+            password = informacion['password1']
+
+            usuario.set_password(password)
 
             usuario.save()
 

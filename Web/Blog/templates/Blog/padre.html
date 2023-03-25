@@ -57,8 +57,14 @@
                             </div>
                           </li>
                           <li style="border: none; background-color: transparent;" class="nav-item dropdown">
-                            <li class="nav-item"><a style="font-size: 20px;" class="nav-link" href="{% url 'Account:logout' %}">Logout</a></li>
-                            <li class="nav-item"><a style="font-size: 20px;" class="nav-link" >{{request.user}}</a></li>
+                            <button style="border: none; background-color: transparent;font-size: 20px;" class="nav-link dropdown-toggle" type="button" id="dropdownPerfil" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{request.user}}
+                              </button>
+                              <div style="border: none; background-color: transparent;" class="dropdown-menu" aria-labelledby="dropdownPerfil">
+                                <a style="color: white;" class="dropdown-item" href="{% url 'Account:logout' %}">Cerrar Sesión</a>
+                
+                                <!-- Agregue más elementos de menú aquí si es necesario -->
+                              </div>
                 
                           </li>
                         
@@ -80,7 +86,7 @@
                 <div style="color:brown;" class="masthead-heading text-uppercase">Blog de Coder</div>
                 <div style="color: brown;" class="masthead-subheading">{% block msj %} {% endblock %}</div>
                 {% if msj %}
-                <div style="color: brown;" class="masthead-subheading">{{msj}}</div>
+                <div style="color:black;" class="masthead-subheading"><{{msj}}</div>
                 {% endif %}
             </div>
         </header>
