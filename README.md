@@ -20,6 +20,14 @@ Se desarrollo un Blog donde podremos registrar un usuario, iniciar session , pub
 * [x] Apartado admin/
 * [ ] App de mensajeria entre usuarios
 
+# Tecnologias utilizadas 
+
+* Python
+* django
+* html
+* css
+* js
+* bootstrap
 
 # Cómo probar el proyecto:
 
