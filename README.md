@@ -20,7 +20,7 @@ Se desarrollo un Blog donde podremos registrar un usuario, iniciar session , pub
 * [x] Apartado admin/
 * [ ] App de mensajeria entre usuarios
 
-# Tecnologias utilizadas 
+# Tecnologías utilizadas 
 
 * Python
 * django
